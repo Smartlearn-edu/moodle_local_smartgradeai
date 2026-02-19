@@ -39,7 +39,7 @@ function xmldb_local_smartgradeai_upgrade($oldversion)
             $dbman->add_field($table, $field);
         }
 
-        // Autogradehelper savepoint reached.
+        // SmartGradeAI savepoint reached.
         upgrade_plugin_savepoint(true, 2023122801, 'local', 'smartgradeai');
     }
 
@@ -53,7 +53,7 @@ function xmldb_local_smartgradeai_upgrade($oldversion)
             $dbman->add_field($table, $field);
         }
 
-        // Autogradehelper savepoint reached.
+        // SmartGradeAI savepoint reached.
         upgrade_plugin_savepoint(true, 2026020201, 'local', 'smartgradeai');
     }
 
@@ -86,7 +86,7 @@ function xmldb_local_smartgradeai_upgrade($oldversion)
             $dbman->create_table($table);
         }
 
-        // Autogradehelper savepoint reached.
+        // SmartGradeAI savepoint reached.
         upgrade_plugin_savepoint(true, 2026020202, 'local', 'smartgradeai');
     }
 
