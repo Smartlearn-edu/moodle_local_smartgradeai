@@ -3,7 +3,7 @@
 /**
  * Dashboard to review pending AI grades.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -19,9 +19,9 @@ require_login();
 $context = context_system::instance();
 $PAGE->set_context($context);
 
-$url = new moodle_url('/local/autogradehelper/reviews.php');
+$url = new moodle_url('/local/smartgradeai/reviews.php');
 $PAGE->set_url($url);
-$PAGE->set_title(get_string('pluginname', 'local_autogradehelper') . ': Pending Reviews');
+$PAGE->set_title(get_string('pluginname', 'local_smartgradeai') . ': Pending Reviews');
 $PAGE->set_heading('Pending AI Reviews');
 
 // Custom simplified layout (admin like)
@@ -34,7 +34,7 @@ echo $OUTPUT->header();
 $sql = "SELECT r.id, r.assignmentid, r.submissionid, r.userid, r.timecreated,
                a.name as assignmentname, c.fullname as coursename,
                u.firstname, u.lastname
-        FROM {local_autogradehelper_reviews} r
+        FROM {local_smartgradeai_reviews} r
         JOIN {assign} a ON a.id = r.assignmentid
         JOIN {course} c ON c.id = a.course
         JOIN {user} u ON u.id = r.userid
@@ -54,7 +54,7 @@ if (empty($reviews)) {
 
     foreach ($reviews as $review) {
         $user_fullname = fullname($review);
-        $review_url = new moodle_url('/local/autogradehelper/review.php', ['id' => $review->id]);
+        $review_url = new moodle_url('/local/smartgradeai/review.php', ['id' => $review->id]);
         $time_waiting = userdate($review->timecreated);
 
         // Action Button

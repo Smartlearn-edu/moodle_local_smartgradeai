@@ -15,19 +15,19 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Privacy provider for local_autogradehelper.
+ * Privacy provider for local_smartgradeai.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_autogradehelper\privacy;
+namespace local_smartgradeai\privacy;
 
 use core_privacy\local\metadata\null_provider;
 
 /**
- * Privacy API implementation for the Autograde Helper plugin.
+ * Privacy API implementation for the Smart Grade AI plugin.
  *
  * This plugin does not store any personal data. It only provides functionality
  * to export grade data that is already stored by Moodle's core grade system.

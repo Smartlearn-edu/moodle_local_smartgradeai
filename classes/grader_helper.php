@@ -17,12 +17,12 @@
 /**
  * Grader helper class.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_autogradehelper;
+namespace local_smartgradeai;
 
 defined('MOODLE_INTERNAL') || die();
 

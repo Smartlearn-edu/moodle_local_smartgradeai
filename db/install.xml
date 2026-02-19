@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/autogradehelper/db" VERSION="20231201" COMMENT="XMLDB file for Moodle local/autogradehelper"
+<XMLDB PATH="local/smartgradeai/db" VERSION="20231201" COMMENT="XMLDB file for Moodle local/smartgradeai"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="local_autogradehelper_opts" COMMENT="Stores AI grading options per assignment">
+    <TABLE NAME="local_smartgradeai_opts" COMMENT="Stores AI grading options per assignment">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="assignmentid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
@@ -23,7 +23,7 @@
         <INDEX NAME="assignmentid" UNIQUE="false" FIELDS="assignmentid"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="local_autogradehelper_jobs" COMMENT="Tracks status of AI feedback requests for submissions">
+    <TABLE NAME="local_smartgradeai_jobs" COMMENT="Tracks status of AI feedback requests for submissions">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="submissionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="The ID of the assignment submission"/>
@@ -38,7 +38,7 @@
         <INDEX NAME="submissionid" UNIQUE="false" FIELDS="submissionid"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="local_autogradehelper_reviews" COMMENT="Stores draft AI grades for teacher approval (Review Mode)">
+    <TABLE NAME="local_smartgradeai_reviews" COMMENT="Stores draft AI grades for teacher approval (Review Mode)">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="assignmentid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>

@@ -15,15 +15,15 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper plugin.
+ * Smart Grade AI plugin.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
-namespace local_autogradehelper\external;
+namespace local_smartgradeai\external;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -80,15 +80,15 @@ class check_feedback extends external_api
         require_capability('mod/assign:view', $context);
 
         // Get Global Settings
-        $webhookurl = get_config('local_autogradehelper', 'webhookurl');
-        $token = get_config('local_autogradehelper', 'token');
+        $webhookurl = get_config('local_smartgradeai', 'webhookurl');
+        $token = get_config('local_smartgradeai', 'token');
 
         if (empty($webhookurl)) {
             return ['success' => false, 'message' => 'Webhook URL not configured'];
         }
 
         // Get Assignment Settings (to pass AI model preferences etc.)
-        $settings = $DB->get_record('local_autogradehelper_opts', ['assignmentid' => $assignmentid]);
+        $settings = $DB->get_record('local_smartgradeai_opts', ['assignmentid' => $assignmentid]);
 
         $payload = [
             'token' => $token,
@@ -113,7 +113,7 @@ class check_feedback extends external_api
 
         if ($info['http_code'] == 200) {
             // Update Job Status to 'pending'
-            $existing_job = $DB->get_record('local_autogradehelper_jobs', ['submissionid' => $submissionid]);
+            $existing_job = $DB->get_record('local_smartgradeai_jobs', ['submissionid' => $submissionid]);
 
             $job = new \stdClass();
             $job->submissionid = $submissionid;
@@ -122,10 +122,10 @@ class check_feedback extends external_api
 
             if ($existing_job) {
                 $job->id = $existing_job->id;
-                $DB->update_record('local_autogradehelper_jobs', $job);
+                $DB->update_record('local_smartgradeai_jobs', $job);
             } else {
                 $job->timecreated = time();
-                $DB->insert_record('local_autogradehelper_jobs', $job);
+                $DB->insert_record('local_smartgradeai_jobs', $job);
             }
 
             // We can optionally return the n8n response body if it contains a message

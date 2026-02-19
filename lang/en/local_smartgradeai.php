@@ -15,16 +15,16 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper plugin.
+ * Smart Grade AI plugin.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Autograde Helper';
+$string['pluginname'] = 'Smart Grade AI';
 $string['availablemodels'] = 'Available AI Models';
 $string['availablemodels_desc'] = 'List of AI models available for selection in assignment settings. Enter one model per line. These values will be passed to the n8n webhook.';
 $string['n8n_url'] = 'n8n Webhook URL';

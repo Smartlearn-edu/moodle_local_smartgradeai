@@ -15,15 +15,15 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper plugin.
+ * Smart Grade AI plugin.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
-namespace local_autogradehelper\external;
+namespace local_smartgradeai\external;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -57,15 +57,15 @@ class trigger_grading extends \external_api
         require_capability('mod/assign:grade', $context);
 
         // Get Global Settings
-        $webhookurl = get_config('local_autogradehelper', 'webhookurl');
-        $token = get_config('local_autogradehelper', 'token');
+        $webhookurl = get_config('local_smartgradeai', 'webhookurl');
+        $token = get_config('local_smartgradeai', 'token');
 
         if (empty($webhookurl)) {
             return ['success' => false, 'message' => 'Webhook URL not configured'];
         }
 
         // Get Assignment Settings
-        $settings = $DB->get_record('local_autogradehelper_opts', ['assignmentid' => $assignmentid]);
+        $settings = $DB->get_record('local_smartgradeai_opts', ['assignmentid' => $assignmentid]);
 
         $payload = [
             'token' => $token,

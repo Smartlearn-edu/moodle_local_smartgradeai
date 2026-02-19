@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper plugin.
+ * Smart Grade AI plugin.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,35 +25,35 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) {
-    $settings = new admin_settingpage('local_autogradehelper', get_string('pluginname', 'local_autogradehelper'));
+    $settings = new admin_settingpage('local_smartgradeai', get_string('pluginname', 'local_smartgradeai'));
 
     $settings->add(new admin_setting_configtext(
-        'local_autogradehelper/webhookurl',
-        get_string('n8n_url', 'local_autogradehelper'),
-        get_string('n8n_url_desc', 'local_autogradehelper'),
+        'local_smartgradeai/webhookurl',
+        get_string('n8n_url', 'local_smartgradeai'),
+        get_string('n8n_url_desc', 'local_smartgradeai'),
         '',
         PARAM_URL
     ));
 
     $settings->add(new admin_setting_configpasswordunmask(
-        'local_autogradehelper/token',
-        get_string('n8n_token', 'local_autogradehelper'),
-        get_string('n8n_token_desc', 'local_autogradehelper'),
+        'local_smartgradeai/token',
+        get_string('n8n_token', 'local_smartgradeai'),
+        get_string('n8n_token_desc', 'local_smartgradeai'),
         ''
     ));
 
     $settings->add(new admin_setting_configcheckbox(
-        'local_autogradehelper/enable_review_mode',
-        get_string('enable_review_mode', 'local_autogradehelper'),
-        get_string('enable_review_mode_desc', 'local_autogradehelper'),
+        'local_smartgradeai/enable_review_mode',
+        get_string('enable_review_mode', 'local_smartgradeai'),
+        get_string('enable_review_mode_desc', 'local_smartgradeai'),
         0
     ));
 
     $defaultmodels = "Gemini\nClaude\nOpenAI\nDeepseek\nOllama";
     $settings->add(new admin_setting_configtextarea(
-        'local_autogradehelper/availablemodels',
-        get_string('availablemodels', 'local_autogradehelper'),
-        get_string('availablemodels_desc', 'local_autogradehelper'),
+        'local_smartgradeai/availablemodels',
+        get_string('availablemodels', 'local_smartgradeai'),
+        get_string('availablemodels_desc', 'local_smartgradeai'),
         $defaultmodels,
         PARAM_TEXT
     ));

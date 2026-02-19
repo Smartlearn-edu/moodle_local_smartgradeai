@@ -11,7 +11,7 @@ This file tracks potential issues and improvements identified during a code revi
 
 2.  **Double Initialization of JS (`lib.php` vs `footer_injection.php`)**
     *   **Location:** `lib.php` (lines 68-74) and `classes/hook/footer_injection.php` (lines 29-32)
-    *   **Issue:** Both files verify if the user is a teacher and then call `$PAGE->requires->js_init_call(...)` for the same AMD module (`local_autogradehelper/grader`). This causes the JavaScript initialization to run **twice**, potentially leading to double event bindings.
+    *   **Issue:** Both files verify if the user is a teacher and then call `$PAGE->requires->js_init_call(...)` for the same AMD module (`local_smartgradeai/grader`). This causes the JavaScript initialization to run **twice**, potentially leading to double event bindings.
     *   **Fix:** Use one method or the other. `lib.php` has more context variables passed to it, so it might be the preferred location.
 
 3.  **Redundant JS Variable Declaration (`lib.php`)**
@@ -32,5 +32,5 @@ This file tracks potential issues and improvements identified during a code revi
 
 5.  **Duplicate Docblocks**
     *   **Location:** `lib.php` lines 4-21
-    *   **Issue:** The documentation block for `local_autogradehelper_extend_settings_navigation` is repeated 3 times.
+    *   **Issue:** The documentation block for `local_smartgradeai_extend_settings_navigation` is repeated 3 times.
     *   **Fix:** Remove the duplicate comments.

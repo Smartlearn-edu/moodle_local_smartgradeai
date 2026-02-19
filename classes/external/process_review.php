@@ -3,24 +3,24 @@
 /**
  * External function to process (approve/reject) a review.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_autogradehelper\external;
+namespace local_smartgradeai\external;
 
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/externallib.php');
-require_once($CFG->dirroot . '/local/autogradehelper/classes/grader_helper.php');
+require_once($CFG->dirroot . '/local/smartgradeai/classes/grader_helper.php');
 
 use external_api;
 use external_function_parameters;
 use external_single_structure;
 use external_value;
 use context_system;
-use local_autogradehelper\grader_helper;
+use local_smartgradeai\grader_helper;
 
 class process_review extends external_api
 {
@@ -60,7 +60,7 @@ class process_review extends external_api
         // Since reviews spans courses, we check system capability or verify user is teacher in that assignment.
         // For simplicity/MVP: User must have 'mod/assign:grade' in the assignment context.
 
-        $review = $DB->get_record('local_autogradehelper_reviews', ['id' => $reviewid], '*', MUST_EXIST);
+        $review = $DB->get_record('local_smartgradeai_reviews', ['id' => $reviewid], '*', MUST_EXIST);
 
         $cm = get_coursemodule_from_instance('assign', $review->assignmentid);
         if (!$cm) {
@@ -97,7 +97,7 @@ class process_review extends external_api
                 $review->status = 'approved';
                 $review->graderid = $USER->id;
                 $review->timemodified = time();
-                $DB->update_record('local_autogradehelper_reviews', $review);
+                $DB->update_record('local_smartgradeai_reviews', $review);
 
                 return [
                     'success' => true,
@@ -114,7 +114,7 @@ class process_review extends external_api
             $review->status = 'rejected';
             $review->graderid = $USER->id; // Who rejected it
             $review->timemodified = time();
-            $DB->update_record('local_autogradehelper_reviews', $review);
+            $DB->update_record('local_smartgradeai_reviews', $review);
 
             return [
                 'success' => true,

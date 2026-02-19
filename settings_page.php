@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper plugin.
+ * Smart Grade AI plugin.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -35,15 +35,15 @@ require_login($course, false, $cm);
 $context = context_module::instance($cm->id);
 require_capability('mod/assign:grade', $context);
 
-$PAGE->set_url(new moodle_url('/local/autogradehelper/settings_page.php', ['courseid' => $courseid, 'assignmentid' => $assignmentid]));
+$PAGE->set_url(new moodle_url('/local/smartgradeai/settings_page.php', ['courseid' => $courseid, 'assignmentid' => $assignmentid]));
 $PAGE->set_context($context);
-$PAGE->set_title(get_string('settings_link', 'local_autogradehelper'));
+$PAGE->set_title(get_string('settings_link', 'local_smartgradeai'));
 $PAGE->set_heading($course->fullname);
 
-$form = new \local_autogradehelper\form\settings_form();
+$form = new \local_smartgradeai\form\settings_form();
 
 // Load existing settings
-$existing = $DB->get_record('local_autogradehelper_opts', ['assignmentid' => $assignmentid]);
+$existing = $DB->get_record('local_smartgradeai_opts', ['assignmentid' => $assignmentid]);
 $default_data = [
     'courseid' => $courseid,
     'assignmentid' => $assignmentid
@@ -65,7 +65,7 @@ if ($form->is_cancelled()) {
     $record->enable_student_button = $data->enable_student_button;
 
     // Only save review_mode if enabled at system level
-    if (get_config('local_autogradehelper', 'enable_review_mode')) {
+    if (get_config('local_smartgradeai', 'enable_review_mode')) {
         $record->review_mode = $data->review_mode;
     } else {
         $record->review_mode = 0; // Default off if system disabled
@@ -78,15 +78,15 @@ if ($form->is_cancelled()) {
 
     if ($existing) {
         $record->id = $existing->id;
-        $DB->update_record('local_autogradehelper_opts', $record);
+        $DB->update_record('local_smartgradeai_opts', $record);
     } else {
         $record->timecreated = time();
-        $DB->insert_record('local_autogradehelper_opts', $record);
+        $DB->insert_record('local_smartgradeai_opts', $record);
     }
     redirect(new moodle_url('/mod/assign/view.php', ['id' => $cm->id]), get_string('changessaved'), null, \core\output\notification::NOTIFY_SUCCESS);
 }
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('settings_link', 'local_autogradehelper'));
+echo $OUTPUT->heading(get_string('settings_link', 'local_smartgradeai'));
 $form->display();
 echo $OUTPUT->footer();

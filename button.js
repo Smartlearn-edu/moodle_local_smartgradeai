@@ -1,13 +1,13 @@
 // Simple vanilla JS button injection (no AMD compilation needed)
 (function () {
-    console.log('Autograde Helper: Plain JS Loaded');
+    console.log('Smart Grade AI: Plain JS Loaded');
 
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('Autograde Helper: DOM Ready');
+        console.log('Smart Grade AI: DOM Ready');
 
         // Get params from window (set by PHP)
-        var assignmentId = window.autogradehelper_assignmentid;
-        var courseId = window.autogradehelper_courseid;
+        var assignmentId = window.smartgradeai_assignmentid;
+        var courseId = window.smartgradeai_courseid;
 
         console.log('Assignment ID:', assignmentId, 'Course ID:', courseId);
 
@@ -25,7 +25,7 @@
             // Call Moodle AJAX
             require(['core/ajax', 'core/notification'], function (Ajax, Notification) {
                 Ajax.call([{
-                    methodname: 'local_autogradehelper_trigger_grading',
+                    methodname: 'local_smartgradeai_trigger_grading',
                     args: { assignmentid: assignmentId }
                 }])[0].done(function (response) {
                     console.log('Response:', response);

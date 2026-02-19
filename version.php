@@ -17,14 +17,14 @@
 /**
  * Plugin version and other meta-data are defined here.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_autogradehelper';
+$plugin->component = 'local_smartgradeai';
 $plugin->version   = 2026020203; // YYYYMMDDXX - Bumped for Review Table
 $plugin->requires  = 2022112800; // Requires Moodle 4.1+ (adjust as needed)
 $plugin->maturity  = MATURITY_ALPHA;

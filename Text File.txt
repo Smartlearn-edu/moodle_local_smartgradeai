@@ -30,7 +30,7 @@ In wstoken, put your actual token.
 json
 {
   "wstoken": "f6654656456456456",
-  "wsfunction": "local_autogradehelper_save_rubric_grade",
+  "wsfunction": "local_smartgradeai_save_rubric_grade",
   "moodlewsrestformat": "json",
   "assignmentid": 34,
   "userid": 5,
@@ -56,5 +56,5 @@ Since we added a new function, you must:
 Go to Site Administration > Notifications to run the plugin update (to register the new version).
 Go to Site Administration > Server > Web services > External services.
 Click Functions for the service your token belongs to.
-Add function: Search for local_autogradehelper_save_rubric_grade and add it. (If you are using an admin token/service, this might happen automatically, but always check).
+Add function: Search for local_smartgradeai_save_rubric_grade and add it. (If you are using an admin token/service, this might happen automatically, but always check).
  

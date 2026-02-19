@@ -15,15 +15,15 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper plugin.
+ * Smart Grade AI plugin.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
-namespace local_autogradehelper\external;
+namespace local_smartgradeai\external;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -103,16 +103,16 @@ class save_rubric_grade extends external_api
         // Check if Review Mode is enabled for this assignment
         $is_review_mode = false;
         // First check system setting
-        if (get_config('local_autogradehelper', 'enable_review_mode')) {
+        if (get_config('local_smartgradeai', 'enable_review_mode')) {
             // Then check assignment setting
-            $opts = $DB->get_record('local_autogradehelper_opts', ['assignmentid' => $assignmentid]);
+            $opts = $DB->get_record('local_smartgradeai_opts', ['assignmentid' => $assignmentid]);
             if ($opts && !empty($opts->review_mode)) {
                 $is_review_mode = true;
             }
         }
 
         if ($is_review_mode) {
-            // Save as draft to `local_autogradehelper_reviews`
+            // Save as draft to `local_smartgradeai_reviews`
 
             // Identify submission ID (needed for the table)
             // We need to look up the submission for this user/assignment
@@ -139,31 +139,31 @@ class save_rubric_grade extends external_api
 
             // Check if existing pending review exists?
             // Strategy: Overwrite existing pending review for same submission
-            $existing = $DB->get_record('local_autogradehelper_reviews', [
+            $existing = $DB->get_record('local_smartgradeai_reviews', [
                 'submissionid' => $submissionid,
                 'status' => 'pending'
             ]);
 
             if ($existing) {
                 $review->id = $existing->id;
-                $DB->update_record('local_autogradehelper_reviews', $review);
+                $DB->update_record('local_smartgradeai_reviews', $review);
             } else {
                 $review->timecreated = time();
-                $DB->insert_record('local_autogradehelper_reviews', $review);
+                $DB->insert_record('local_smartgradeai_reviews', $review);
             }
 
             // Update Job Status
             // IMPORTANT: We should mark the job as 'review_pending' or similar if we want to track it precisely.
-            // For now, let's update local_autogradehelper_jobs to 'done' (AI part is done) 
+            // For now, let's update local_smartgradeai_jobs to 'done' (AI part is done) 
             // OR maybe 'review' status? 
             // The job table is mostly for the student button spinner. Use 'done' so the spinner stops?
             // If we use 'done', the button might enable "Check Feedback", which might show "Pending Review".
             // Let's stick to 'done' for simplicity in this step.
-            $job = $DB->get_record('local_autogradehelper_jobs', ['submissionid' => $submissionid]);
+            $job = $DB->get_record('local_smartgradeai_jobs', ['submissionid' => $submissionid]);
             if ($job) {
                 $job->status = 'done';
                 $job->timemodified = time();
-                $DB->update_record('local_autogradehelper_jobs', $job);
+                $DB->update_record('local_smartgradeai_jobs', $job);
             }
 
             return [
@@ -173,7 +173,7 @@ class save_rubric_grade extends external_api
         } else {
             // NORMAL MODE: Save to Gradebook directly
             require_once(__DIR__ . '/../grader_helper.php');
-            return \local_autogradehelper\grader_helper::save_rubric_grade($assignmentid, $userid, $rubric_items, $USER->id);
+            return \local_smartgradeai\grader_helper::save_rubric_grade($assignmentid, $userid, $rubric_items, $USER->id);
         }
     }
 

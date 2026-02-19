@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper library functions.
+ * Smart Grade AI library functions.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -42,7 +42,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param settings_navigation $settingsnav
  * @param context $context
  */
-function local_autogradehelper_extend_settings_navigation(settings_navigation $settingsnav, context $context)
+function local_smartgradeai_extend_settings_navigation(settings_navigation $settingsnav, context $context)
 {
     global $PAGE, $DB, $USER;
 
@@ -73,7 +73,7 @@ function local_autogradehelper_extend_settings_navigation(settings_navigation $s
 
         // 1. TEACHER LOGIC (Settings + Grade Button)
         if ($isteacher) {
-            $url = new moodle_url('/local/autogradehelper/settings_page.php', [
+            $url = new moodle_url('/local/smartgradeai/settings_page.php', [
                 'courseid' => $courseid,
                 'assignmentid' => $assignmentid
             ]);
@@ -81,27 +81,27 @@ function local_autogradehelper_extend_settings_navigation(settings_navigation $s
             $node = $settingsnav->find('modulesettings', navigation_node::TYPE_SETTING);
             if ($node) {
                 $node->add(
-                    get_string('settings_link', 'local_autogradehelper'),
+                    get_string('settings_link', 'local_smartgradeai'),
                     $url,
                     navigation_node::TYPE_SETTING
                 );
 
                 // Link to Pending Reviews Dashboard
-                if (get_config('local_autogradehelper', 'enable_review_mode')) {
-                    $review_url = new moodle_url('/local/autogradehelper/reviews.php');
+                if (get_config('local_smartgradeai', 'enable_review_mode')) {
+                    $review_url = new moodle_url('/local/smartgradeai/reviews.php');
                     $node->add(
                         'Pending AI Reviews', // Hardcoded string for now or get_string if exists
                         $review_url,
                         navigation_node::TYPE_SETTING,
                         null,
-                        'local_autogradehelper_reviews',
+                        'local_smartgradeai_reviews',
                         new pix_icon('i/grades', '')
                     );
                 }
             }
 
             // Inject AMD Module strictly for teachers (restoring original behavior)
-            $PAGE->requires->js_call_amd('local_autogradehelper/grader', 'init', [
+            $PAGE->requires->js_call_amd('local_smartgradeai/grader', 'init', [
                 'assignmentid' => $assignmentid,
                 'courseid' => $courseid,
                 'userid' => $userid,
@@ -116,7 +116,7 @@ function local_autogradehelper_extend_settings_navigation(settings_navigation $s
         $action = optional_param('action', '', PARAM_ALPHA);
         if (!$isteacher && $action !== 'editsubmission') {
             // Check if enabled by teacher
-            $opts = $DB->get_record('local_autogradehelper_opts', ['assignmentid' => $assignmentid]);
+            $opts = $DB->get_record('local_smartgradeai_opts', ['assignmentid' => $assignmentid]);
             if (!$opts || empty($opts->enable_student_button)) {
                 return;
             }
@@ -127,7 +127,7 @@ function local_autogradehelper_extend_settings_navigation(settings_navigation $s
 
             if ($submissionid) {
                 // Check Job Status
-                $job = $DB->get_record('local_autogradehelper_jobs', ['submissionid' => $submissionid]);
+                $job = $DB->get_record('local_smartgradeai_jobs', ['submissionid' => $submissionid]);
                 $job_status = $job ? $job->status : 'ready';
                 $job_time = $job ? $job->timemodified : 0;
 
@@ -177,7 +177,7 @@ function local_autogradehelper_extend_settings_navigation(settings_navigation $s
                 require(['jquery', 'core/ajax', 'core/notification'], function($, Ajax, Notification) {
                     $(document).ready(function() {
                         // Avoid duplicates
-                        if ($('#autogradehelper-student-btn').length) return;
+                        if ($('#smartgradeai-student-btn').length) return;
 
                         var btnLabel = "Check AI Feedback";
                         var isInitiallyDisabled = false;
@@ -220,7 +220,7 @@ function local_autogradehelper_extend_settings_navigation(settings_navigation $s
                             // If > 10 mins, we leave it enabled (Reset)
                         }
 
-                        var studentButton = $('<button id="autogradehelper-student-btn" class="' + btnClass + '">' + btnLabel + '</button>');
+                        var studentButton = $('<button id="smartgradeai-student-btn" class="' + btnClass + '">' + btnLabel + '</button>');
                         if (isInitiallyDisabled) {
                             studentButton.prop('disabled', true);
                         }
@@ -230,7 +230,7 @@ function local_autogradehelper_extend_settings_navigation(settings_navigation $s
                             studentButton.prop('disabled', true);
                             
                             Ajax.call([{
-                                methodname: 'local_autogradehelper_check_feedback',
+                                methodname: 'local_smartgradeai_check_feedback',
                                 args: { 
                                     submissionid: agh_submissionid,
                                     assignmentid: agh_assignmentid,

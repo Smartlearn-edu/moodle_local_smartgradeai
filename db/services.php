@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper plugin.
+ * Smart Grade AI plugin.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,32 +25,32 @@
 defined('MOODLE_INTERNAL') || die();
 
 $functions = [
-    'local_autogradehelper_trigger_grading' => [
-        'classname'   => 'local_autogradehelper\external\trigger_grading',
+    'local_smartgradeai_trigger_grading' => [
+        'classname'   => 'local_smartgradeai\external\trigger_grading',
         'methodname'  => 'execute',
-        'classpath'   => 'local/autogradehelper/classes/external/trigger_grading.php',
+        'classpath'   => 'local/smartgradeai/classes/external/trigger_grading.php',
         'description' => 'Triggers the n8n grading workflow',
         'type'        => 'write',
         'ajax'        => true,
     ],
-    'local_autogradehelper_check_feedback' => [
-        'classname'   => 'local_autogradehelper\external\check_feedback',
+    'local_smartgradeai_check_feedback' => [
+        'classname'   => 'local_smartgradeai\external\check_feedback',
         'methodname'  => 'execute',
-        'classpath'   => 'local/autogradehelper/classes/external/check_feedback.php',
+        'classpath'   => 'local/smartgradeai/classes/external/check_feedback.php',
         'description' => 'Checks for AI feedback availability',
         'type'        => 'read',
         'ajax'        => true,
     ],
-    'local_autogradehelper_save_rubric_grade' => [
-        'classname'   => 'local_autogradehelper\external\save_rubric_grade',
+    'local_smartgradeai_save_rubric_grade' => [
+        'classname'   => 'local_smartgradeai\external\save_rubric_grade',
         'methodname'  => 'execute',
-        'classpath'   => 'local/autogradehelper/classes/external/save_rubric_grade.php',
+        'classpath'   => 'local/smartgradeai/classes/external/save_rubric_grade.php',
         'description' => 'Saves a rubric grade for a submission',
         'type'        => 'write',
         'ajax'        => true,
     ],
-    'local_autogradehelper_process_review' => [
-        'classname'   => 'local_autogradehelper\external\process_review',
+    'local_smartgradeai_process_review' => [
+        'classname'   => 'local_smartgradeai\external\process_review',
         'methodname'  => 'execute',
         'description' => 'Approve or Reject an AI draft review.',
         'type'        => 'write',

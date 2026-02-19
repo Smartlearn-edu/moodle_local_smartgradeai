@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper plugin.
+ * Smart Grade AI plugin.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 $hooks = [
     \core\hook\output\before_footer_html_generation::class => [
         [
-            'callback' => 'local_autogradehelper\hook\footer_injection::callback',
+            'callback' => 'local_smartgradeai\hook\footer_injection::callback',
             'priority' => 100,
         ],
     ],

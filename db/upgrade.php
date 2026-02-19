@@ -15,23 +15,23 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper plugin.
+ * Smart Grade AI plugin.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-function xmldb_local_autogradehelper_upgrade($oldversion)
+function xmldb_local_smartgradeai_upgrade($oldversion)
 {
     global $DB;
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2023122801) {
-        // Define field enable_student_button to be added to local_autogradehelper_opts.
-        $table = new xmldb_table('local_autogradehelper_opts');
+        // Define field enable_student_button to be added to local_smartgradeai_opts.
+        $table = new xmldb_table('local_smartgradeai_opts');
         $field = new xmldb_field('enable_student_button', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'complexity');
 
         // Conditionally launch add field enable_student_button.
@@ -40,12 +40,12 @@ function xmldb_local_autogradehelper_upgrade($oldversion)
         }
 
         // Autogradehelper savepoint reached.
-        upgrade_plugin_savepoint(true, 2023122801, 'local', 'autogradehelper');
+        upgrade_plugin_savepoint(true, 2023122801, 'local', 'smartgradeai');
     }
 
     if ($oldversion < 2026020201) {
-        // Define field review_mode to be added to local_autogradehelper_opts.
-        $table = new xmldb_table('local_autogradehelper_opts');
+        // Define field review_mode to be added to local_smartgradeai_opts.
+        $table = new xmldb_table('local_smartgradeai_opts');
         $field = new xmldb_field('review_mode', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'enable_student_button');
 
         // Conditionally launch add field review_mode.
@@ -54,14 +54,14 @@ function xmldb_local_autogradehelper_upgrade($oldversion)
         }
 
         // Autogradehelper savepoint reached.
-        upgrade_plugin_savepoint(true, 2026020201, 'local', 'autogradehelper');
+        upgrade_plugin_savepoint(true, 2026020201, 'local', 'smartgradeai');
     }
 
     if ($oldversion < 2026020202) {
-        // Define table local_autogradehelper_reviews to be created.
-        $table = new xmldb_table('local_autogradehelper_reviews');
+        // Define table local_smartgradeai_reviews to be created.
+        $table = new xmldb_table('local_smartgradeai_reviews');
 
-        // Adding fields to table local_autogradehelper_reviews.
+        // Adding fields to table local_smartgradeai_reviews.
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
         $table->add_field('assignmentid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
         $table->add_field('submissionid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
@@ -73,21 +73,21 @@ function xmldb_local_autogradehelper_upgrade($oldversion)
         $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
         $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
 
-        // Adding keys to table local_autogradehelper_reviews.
+        // Adding keys to table local_smartgradeai_reviews.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
 
-        // Adding indexes to table local_autogradehelper_reviews.
+        // Adding indexes to table local_smartgradeai_reviews.
         $table->add_index('submissionid', XMLDB_INDEX_NOTUNIQUE, ['submissionid']);
         $table->add_index('assignmentid', XMLDB_INDEX_NOTUNIQUE, ['assignmentid']);
         $table->add_index('status', XMLDB_INDEX_NOTUNIQUE, ['status']);
 
-        // Conditionally launch create table for local_autogradehelper_reviews.
+        // Conditionally launch create table for local_smartgradeai_reviews.
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
         }
 
         // Autogradehelper savepoint reached.
-        upgrade_plugin_savepoint(true, 2026020202, 'local', 'autogradehelper');
+        upgrade_plugin_savepoint(true, 2026020202, 'local', 'smartgradeai');
     }
 
     return true;

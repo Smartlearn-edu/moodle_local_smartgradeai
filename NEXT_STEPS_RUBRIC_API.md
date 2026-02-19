@@ -4,7 +4,7 @@
 
 ## Completed Tasks
 - [x] **Created API Class**: `classes/external/save_rubric_grade.php` is implemented. It accepts a simplified list of criterion ID/level IDs and converts them to Moodle's internal `advancedgrading` format.
-- [x] **Registered Function**: Added `local_autogradehelper_save_rubric_grade` to `db/services.php`.
+- [x] **Registered Function**: Added `local_smartgradeai_save_rubric_grade` to `db/services.php`.
 - [x] **Version Update**: Bumped `version.php` to `2026013100` to ensure Moodle detects the changes.
 
 ## To-Do (Next Session)
@@ -12,7 +12,7 @@
     *   Go to **Site Administration > Notifications** to run the database upgrade for this plugin.
     *   Go to **Site Administration > Server > Web services > External services**.
     *   Find the service user you are using for n8n.
-    *   **Add Function**: Search for and add `local_autogradehelper_save_rubric_grade` to their allowed functions.
+    *   **Add Function**: Search for and add `local_smartgradeai_save_rubric_grade` to their allowed functions.
 
 2.  **Test with n8n**:
     *   Use the HTTP Request node configuration below to test sending a grade.
@@ -27,7 +27,7 @@
 ```json
 {
   "wstoken": "YOUR_TOKEN_HERE",
-  "wsfunction": "local_autogradehelper_save_rubric_grade",
+  "wsfunction": "local_smartgradeai_save_rubric_grade",
   "moodlewsrestformat": "json",
   "assignmentid": 34,
   "userid": 5,

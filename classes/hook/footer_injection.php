@@ -15,15 +15,15 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper plugin.
+ * Smart Grade AI plugin.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
-namespace local_autogradehelper\hook;
+namespace local_smartgradeai\hook;
 
 use core\hook\output\before_footer_html_generation;
 
@@ -36,29 +36,29 @@ class footer_injection
         global $PAGE;
 
         // DEBUG: Unconditional log to prove the hook runs
-        $PAGE->requires->js_init_code("console.log('Autograde Helper: PHP Hook Running on page: " . $PAGE->pagetype . "');");
+        $PAGE->requires->js_init_code("console.log('Smart Grade AI: PHP Hook Running on page: " . $PAGE->pagetype . "');");
 
         // Run on any assignment page (view, grading, etc.)
         if (strpos($PAGE->pagetype, 'mod-assign-') === 0) {
             $context = $PAGE->context;
             if ($context->contextlevel == CONTEXT_MODULE && $PAGE->cm->modname === 'assign') {
                 // DEBUG: Log context check pass
-                $PAGE->requires->js_init_code("console.log('Autograde Helper: Context Check Passed');");
+                $PAGE->requires->js_init_code("console.log('Smart Grade AI: Context Check Passed');");
 
                 if (has_capability('mod/assign:grade', $context)) {
                     // DEBUG: Log capability check pass
-                    $PAGE->requires->js_init_code("console.log('Autograde Helper: Capability Check Passed');");
+                    $PAGE->requires->js_init_code("console.log('Smart Grade AI: Capability Check Passed');");
 
-                    $PAGE->requires->js_call_amd('local_autogradehelper/grader', 'init', [
+                    $PAGE->requires->js_call_amd('local_smartgradeai/grader', 'init', [
                         'assignmentid' => (int)$PAGE->cm->instance,
                         'courseid' => (int)$PAGE->course->id
                     ]);
                 } else {
-                    $PAGE->requires->js_init_code("console.log('Autograde Helper: Capability Check FAILED');");
+                    $PAGE->requires->js_init_code("console.log('Smart Grade AI: Capability Check FAILED');");
                 }
             }
         } else {
-            $PAGE->requires->js_init_code("console.log('Autograde Helper: Page Type Check FAILED');");
+            $PAGE->requires->js_init_code("console.log('Smart Grade AI: Page Type Check FAILED');");
         }
     }
 }

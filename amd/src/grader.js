@@ -2,7 +2,7 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/str'], function ($, Aj
     return {
         init: function (params) {
             console.log('=== AUTOGRADEHELPER AMD MODULE INIT ===');
-            console.log('Autograde Helper: Init called with params:', params);
+            console.log('Smart Grade AI: Init called with params:', params);
 
             var assignmentId, courseId, userId, submissionId, isTeacher;
 
@@ -39,18 +39,18 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/str'], function ($, Aj
 
                 // 1. TEACHER BUTTON
                 if (isTeacher) {
-                    Str.get_string('grade_with_ai_button', 'local_autogradehelper').done(function (buttonLabel) {
+                    Str.get_string('grade_with_ai_button', 'local_smartgradeai').done(function (buttonLabel) {
                         var button = $('<button class="btn btn-primary ml-2">' + buttonLabel + '</button>');
                         button.click(function (e) {
                             e.preventDefault();
                             button.prop('disabled', true);
 
                             Ajax.call([{
-                                methodname: 'local_autogradehelper_trigger_grading',
+                                methodname: 'local_smartgradeai_trigger_grading',
                                 args: { assignmentid: assignmentId }
                             }])[0].done(function (response) {
                                 if (response.success) {
-                                    Str.get_string('trigger_success', 'local_autogradehelper').done(function (s) { Notification.alert('Success', s, 'Ok'); });
+                                    Str.get_string('trigger_success', 'local_smartgradeai').done(function (s) { Notification.alert('Success', s, 'Ok'); });
                                 } else {
                                     Notification.alert('Error', response.message, 'Ok');
                                 }
@@ -79,7 +79,7 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/str'], function ($, Aj
 
                         // Call new webservice
                         Ajax.call([{
-                            methodname: 'local_autogradehelper_check_feedback',
+                            methodname: 'local_smartgradeai_check_feedback',
                             args: {
                                 submissionid: submissionId,
                                 assignmentid: assignmentId,

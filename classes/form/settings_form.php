@@ -15,15 +15,15 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Autograde helper plugin.
+ * Smart Grade AI plugin.
  *
- * @package     local_autogradehelper
+ * @package     local_smartgradeai
  * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
-namespace local_autogradehelper\form;
+namespace local_smartgradeai\form;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -35,28 +35,28 @@ class settings_form extends \moodleform
     {
         $mform = $this->_form;
 
-        $mform->addElement('header', 'general', get_string('settings_link', 'local_autogradehelper'));
+        $mform->addElement('header', 'general', get_string('settings_link', 'local_smartgradeai'));
 
         // Enable Student Review Button
-        $mform->addElement('advcheckbox', 'enable_student_button', get_string('enable_student_button', 'local_autogradehelper'), get_string('enable_student_button_desc', 'local_autogradehelper'), [], [0, 1]);
+        $mform->addElement('advcheckbox', 'enable_student_button', get_string('enable_student_button', 'local_smartgradeai'), get_string('enable_student_button_desc', 'local_smartgradeai'), [], [0, 1]);
         $mform->setDefault('enable_student_button', 0);
         $mform->setType('enable_student_button', PARAM_INT);
 
         // Review Mode (Human-in-the-Loop)
-        if (get_config('local_autogradehelper', 'enable_review_mode')) {
-            $mform->addElement('advcheckbox', 'review_mode', get_string('review_mode', 'local_autogradehelper'), get_string('review_mode_desc', 'local_autogradehelper'), [], [0, 1]);
+        if (get_config('local_smartgradeai', 'enable_review_mode')) {
+            $mform->addElement('advcheckbox', 'review_mode', get_string('review_mode', 'local_smartgradeai'), get_string('review_mode_desc', 'local_smartgradeai'), [], [0, 1]);
             $mform->setDefault('review_mode', 0);
             $mform->setType('review_mode', PARAM_INT);
         }
 
         // System Message
-        $mform->addElement('textarea', 'system_message', get_string('system_message', 'local_autogradehelper'), 'wrap="virtual" rows="10" cols="50"');
-        $mform->addHelpButton('system_message', 'system_message', 'local_autogradehelper');
+        $mform->addElement('textarea', 'system_message', get_string('system_message', 'local_smartgradeai'), 'wrap="virtual" rows="10" cols="50"');
+        $mform->addHelpButton('system_message', 'system_message', 'local_smartgradeai');
         $mform->setType('system_message', PARAM_TEXT);
 
         // AI Agent
         $agents = [];
-        $models_config = get_config('local_autogradehelper', 'availablemodels');
+        $models_config = get_config('local_smartgradeai', 'availablemodels');
         if (!empty($models_config)) {
             $lines = explode("\n", $models_config);
             foreach ($lines as $line) {
@@ -79,20 +79,20 @@ class settings_form extends \moodleform
             ];
         }
 
-        $mform->addElement('select', 'ai_agent', get_string('ai_agent', 'local_autogradehelper'), $agents);
+        $mform->addElement('select', 'ai_agent', get_string('ai_agent', 'local_smartgradeai'), $agents);
         $mform->setType('ai_agent', PARAM_TEXT);
 
         // Subject / Domain
         $subjects = [
-            'general'     => get_string('subject_general', 'local_autogradehelper'),
-            'math'        => get_string('subject_math', 'local_autogradehelper'),
-            'programming' => get_string('subject_programming', 'local_autogradehelper'),
-            'medical'     => get_string('subject_medical', 'local_autogradehelper'),
-            'science'     => get_string('subject_science', 'local_autogradehelper'),
-            'law'         => get_string('subject_law', 'local_autogradehelper'),
-            'creative'    => get_string('subject_creative', 'local_autogradehelper'),
+            'general'     => get_string('subject_general', 'local_smartgradeai'),
+            'math'        => get_string('subject_math', 'local_smartgradeai'),
+            'programming' => get_string('subject_programming', 'local_smartgradeai'),
+            'medical'     => get_string('subject_medical', 'local_smartgradeai'),
+            'science'     => get_string('subject_science', 'local_smartgradeai'),
+            'law'         => get_string('subject_law', 'local_smartgradeai'),
+            'creative'    => get_string('subject_creative', 'local_smartgradeai'),
         ];
-        $mform->addElement('select', 'complexity', get_string('complexity', 'local_autogradehelper'), $subjects);
+        $mform->addElement('select', 'complexity', get_string('complexity', 'local_smartgradeai'), $subjects);
         $mform->setType('complexity', PARAM_ALPHA);
 
         // Hidden fields
